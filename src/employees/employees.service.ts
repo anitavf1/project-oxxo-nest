@@ -38,7 +38,7 @@ export class EmployeesService {
     let employeeToUpdate = this.findOne(id);
     employeeToUpdate = {
       ...employeeToUpdate,
-      ...UpdateEmployeeDto
+      ...updateEmployeeDto
     }
     this.employees = this.employees.map((employee) =>{
       if(employee.id=== id){
@@ -54,3 +54,5 @@ export class EmployeesService {
     return this.employees;
   }
 }
+
+//hola
