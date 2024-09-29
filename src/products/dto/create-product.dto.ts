@@ -1,7 +1,8 @@
 import { IsInt, IsNumber, IsOptional, isPort, IsString, IsUUID, MaxLength } from "class-validator";
-import { isFloat32Array } from "util/types";
+import {Provider} from "src/providers/entities/provider.entity";
+import { Product } from "../entities/product.entity";
 
-export class CreateProductDto {
+export class CreateProductDto extends Product{
     @IsUUID("4")
     @IsOptional()
     productId: string;
@@ -15,5 +16,5 @@ export class CreateProductDto {
     @IsString()
     @IsUUID()
     @IsOptional()
-    provider: string;
+    provider: Provider;
 }
