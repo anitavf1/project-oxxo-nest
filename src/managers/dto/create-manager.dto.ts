@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Manager } from "../entities/managers.service";
-import { IsEmail, IsString, IsNumber, MaxLength} from "class-validator";
+import { IsEmail, IsString, IsNumber, MaxLength, IsObject, IsOptional} from "class-validator";
 
 @Entity()
 export class CreateManagerDto extends Manager {
@@ -15,4 +15,8 @@ export class CreateManagerDto extends Manager {
     @IsString()
     @MaxLength(16)
     managerPhoneNumber: string;
+    @IsObject()
+    @IsOptional()
+    location: Location;
+
 }

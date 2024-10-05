@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { EmployeesModule } from './employees/employees.module';
 import { ProductsModule } from './products/products.module';
 import {ConfigModule} from "@nestjs/config";
@@ -10,9 +8,18 @@ import { ManagersResolver } from './managers/managers.resolver';
 import { LocationsResolver } from './locations/locations.resolver';
 import { RegionsResolver } from './regions/regions.resolver';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { JWT_KEY } from './auth/constants/jwt.constants';
+import { EXPIRES_IN } from './auth/constants/jwt.constants';
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: JWT_KEY,
+      signOptions: {
+        expiresIn: EXPIRES_IN,
+      }
+    })
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
     type: 'postgres',
