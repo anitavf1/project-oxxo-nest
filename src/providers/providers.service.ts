@@ -21,12 +21,19 @@ export class ProvidersService {
   }
 
   findAll() {
-    return this.providerRepository.find()
+    return this.providerRepository.find({relations:{
+      products: true,
+    }})
   }
 
   findOne(id: string) {
     return this.providerRepository.findOneBy({
-      providerId: id
+      where: {
+        providerId:id
+      },
+      relations:{
+        products:true,
+      }
     })
   }
 

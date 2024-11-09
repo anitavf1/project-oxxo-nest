@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_KEY } from './auth/constants/jwt.constants';
 import { EXPIRES_IN } from './auth/constants/jwt.constants';
+import { AwsModule } from './aws/aws.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { EXPIRES_IN } from './auth/constants/jwt.constants';
       database: process.env.name,
       autoLoadEntities: true,
       synchronize: true,
-}),EmployeesModule, ProductsModule, ProvidersModule, AuthModule],
+}),EmployeesModule, ProductsModule, ProvidersModule, AuthModule, AwsModule],
   controllers: [AppController],
   providers: [AppService, ManagersResolver, LocationsResolver, RegionsResolver],
 })
