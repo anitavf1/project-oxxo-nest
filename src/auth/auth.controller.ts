@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -14,9 +14,17 @@ import {TOKEN_NAME} from './constants/jwt.constants'
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post("signup")
-  signp(@Body()createUserDto:CreateUserDto){
-    this.authService.registerUser(createUserDto)
+  
+
+  @Post("register/:id")
+  registerManager(@Query("role") role: string, @Body()createUserDto:CreateUserDto, @Param("id") id:string){
+    if(role=== "manager"){
+      return this.authService.registerManager(id, createUserDto)
+    } else if(role === "employee"){
+      return this.authService.registerEmployee(id, createUserDto)
+    }
+    throw new BadRequestException("Rol inválido")
+    
   }
 
   @Post("login")

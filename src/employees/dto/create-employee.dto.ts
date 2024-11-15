@@ -24,12 +24,18 @@ export class CreateEmployeeDto extends Employee {
     @ApiProperty()
     @IsString()
     @IsEmail()
-    employeeEmail:string;
+    employeeEmail: string;
+
+    @ApiPropertyOptional()
+    @IsOptional()
+    @IsString()
+    @IsEmail()
+    location: Location|string;
 
     @ApiProperty()
     @IsOptional()
-    @IsObject()
-    location: Location;
+    employeePhoto: string;
+    
 
     
 }

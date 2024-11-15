@@ -5,12 +5,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  cors: {
-    origin: process.env.allowedOrigin,
-    credentials:true,
-  }
-});
+  const app = await NestFactory.create(AppModule ,{
+    cors: {
+      origin: process.env.allowedOrigin,
+      credentials: true,
+    }
+
+  });
+    
+  
   app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('Oxxo API')
