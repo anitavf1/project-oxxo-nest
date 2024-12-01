@@ -1,38 +1,39 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { EmployeesModule } from './employees/employees.module';
-import { ProductsModule } from './products/products.module';
-import {ConfigModule} from "@nestjs/config";
-import { ProvidersModule } from './providers/providers.module';
-import { ManagersResolver } from './managers/managers.resolver';
-import { LocationsResolver } from './locations/locations.resolver';
-import { RegionsResolver } from './regions/regions.resolver';
-import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
-import { JWT_KEY } from './auth/constants/jwt.constants';
-import { EXPIRES_IN } from './auth/constants/jwt.constants';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { EmployeesModule } from "./employees/employees.module";
+import { ProductsModule } from "./products/products.module";
+import { ConfigModule } from "@nestjs/config";
+import { ProvidersModule } from "./providers/providers.module";
+import { ManagersModule } from "./managers/managers.module";
+import { LocationsModule } from "./locations/locations.module";
+import { RegionsModule } from "./regions/regions.module";
+import { AuthModule } from "./auth/auth.module";
 import { AwsModule } from './aws/aws.module';
 
 @Module({
   imports: [
-    JwtModule.register({
-      secret: JWT_KEY,
-      signOptions: {
-        expiresIn: EXPIRES_IN,
-      }
-    })
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-    type: 'postgres',
+      type: "postgres",
       host: process.env.host,
       port: +process.env.port,
-      username: 'postgres',
-      password: "TheBestPassword",
+      username: "postgres",
+      password: process.env.pass,
       database: process.env.name,
+      entities: [],
       autoLoadEntities: true,
       synchronize: true,
-}),EmployeesModule, ProductsModule, ProvidersModule, AuthModule, AwsModule],
-  controllers: [AppController],
-  providers: [AppService, ManagersResolver, LocationsResolver, RegionsResolver],
+    }),
+    EmployeesModule,
+    ProductsModule,
+    ProvidersModule,
+    ManagersModule,
+    LocationsModule,
+    RegionsModule,
+    AuthModule,
+    AwsModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -3,15 +3,16 @@ import { CreateManagerDto } from "./dto/create-manager.dto";
 import {UpdateManagerDto} from "./dto/update-manager.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { Manager } from "./entities/manager.entity";
 
 @Injectable()
-export class ManagerService{
+export class ManagersService{
     constructor(
         @InjectRepository(Manager)
         private managerRepository: Repository<Manager>
     ){}
     create(createManagerDto:CreateManagerDto){
-        return this.managerRepository.save(CreateManagerDto);
+        return this.managerRepository.save(createManagerDto);
 
     }
 
@@ -35,9 +36,9 @@ export class ManagerService{
         if (!manager) throw new NotFoundException("No manager found")
     }
 
-    update(id:number, updateManagerDto:UpdateManagerDto){
-        const managerToUpdate= this.managerRepository.preload({
-            managerId: id,
+    async update(id: string, updateManagerDto: UpdateManagerDto) {
+        const managerToUpdate = await this.managerRepository.preload({
+          managerId: id,
             ...updateManagerDto
         })
         return this.managerRepository.save(managerToUpdate)

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Manager } from "../entities/managers.entity";
+import { Manager } from "../entities/manager.entity";
 import { IsEmail, IsString, IsNumber, MaxLength, IsObject, IsOptional} from "class-validator";
 
 @Entity()

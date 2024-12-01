@@ -32,7 +32,4 @@ export class Employee {
         name: "userId"
     })
     user: User;
-
-
-
 }

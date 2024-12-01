@@ -3,12 +3,12 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Roles } from 'src/auth/decorators/roles.decorators';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiAuth } from 'src/auth/decorators/api.decorators';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { ROLES } from 'src/auth/constants/roles.constants';
 import { AwsService } from 'src/aws/aws.service';
+import { Employee } from './entities/employee.entity';
 
 @ApiAuth()
 @ApiTags('Employees')
@@ -42,9 +42,7 @@ export class EmployeesController {
       const photoUrl= await this.awsService.uploadFile(file)
       createEmployeeDto.employeePhoto= photoUrl;
       return this.employeesService.create(createEmployeeDto)
-
     }
-    
   }
 
   @Auth(ROLES.MANAGER, ROLES.EMPLOYEE)

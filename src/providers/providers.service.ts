@@ -27,12 +27,12 @@ export class ProvidersService {
   }
 
   findOne(id: string) {
-    return this.providerRepository.findOneBy({
-      where: {
-        providerId:id
+    return this.providerRepository.findOne({
+      where : {
+        providerId: id
       },
-      relations:{
-        products:true,
+      relations: {
+        products: true,
       }
     })
   }
